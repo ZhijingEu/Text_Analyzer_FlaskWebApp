@@ -1,0 +1,54 @@
+﻿<!doctype html>
+<html>
+
+<body>
+{% set MTBI_image1 = 'MTBI'+ image_counter1 +'.png' %}
+{% set OCEAN_image1 = 'OCEAN'+ image_counter1 +'.png' %}
+{% set wordcloud_image1 = 'wordcloud'+ image_counter1 +'.png' %}
+
+{% set MTBI_image2 = 'MTBI'+ image_counter2 +'.png' %}
+{% set OCEAN_image2 = 'OCEAN'+ image_counter2 +'.png' %}
+{% set wordcloud_image2 = 'wordcloud'+ image_counter2 +'.png' %}
+
+<h1>Side By Side Comparison Of 2 Web Pages</h1>
+
+<h3>Semantic Similarity (Estimated Via Doc2Vec Word Vectorisation) = {{similarity}} % </h3>
+<p> </p>
+<hr>
+<table>
+    <tbody>
+       <tr>
+        <td><img src="{{ url_for('static', filename=wordcloud_image1)}}" ></td>
+        <td><img src="{{ url_for('static', filename=wordcloud_image2)}}" ></td>
+      </tr>
+    </tbody>
+    </table>
+<hr>
+
+{% for table in urldetails_tables %}
+            {{ table|safe }}
+{% endfor %}
+<hr>
+<table>
+    <tbody>
+      <tr>
+        <td colspan="2"> Myers Briggs Personality Type </td>
+      </tr>
+      <tr>
+        <td><img src="{{ url_for('static', filename=MTBI_image1)}}" ></td>
+        <td><img src="{{ url_for('static', filename=MTBI_image2)}}" ></td>
+      </tr>
+      <tr>
+        <td colspan="2"> Big5 OCEAN Personality Type </td>
+      </tr>
+      <tr>
+        <td><img src="{{ url_for('static', filename=OCEAN_image1)}}" ></td>
+        <td><img src="{{ url_for('static', filename=OCEAN_image2)}}" ></td>
+      </tr>
+    </tbody>
+    </table>
+<hr>
+
+</body>
+</html>
+

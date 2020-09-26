@@ -1,0 +1,32 @@
+﻿<!doctype html>
+<html>
+
+<body>
+{% set polarity_image = 'polarity'+ image_counter +'.png' %}
+{% set subjectivity_image = 'subjectivity'+ image_counter +'.png' %}
+{% set wordcount_image = 'wordcount'+ image_counter +'.png' %}
+{% set readability_image = 'readability'+ image_counter +'.png' %}
+
+<h1>Detailed Sentence By Sentence Level Analysis</h1>
+
+<hr>
+
+{% for table in text_tables %}
+            {{ table|safe }}
+{% endfor %}
+
+<hr>
+<img src="{{ url_for('static', filename=wordcount_image)}}" >
+
+<hr>
+<img src="{{ url_for('static', filename=readability_image)}}" >
+
+<hr>
+<img src="{{ url_for('static', filename=polarity_image)}}" >
+
+<hr>
+<img src="{{ url_for('static', filename=subjectivity_image)}}" >
+<hr>
+
+</body>
+</html>

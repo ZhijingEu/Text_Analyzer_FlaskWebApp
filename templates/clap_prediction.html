@@ -1,0 +1,78 @@
+﻿<!doctype html>
+<html>
+
+<body>
+
+{% set title_word_count_image = 'title_word_count'+ image_counter +'.png' %}
+{% set text_word_count_image = 'text_word_count'+ image_counter +'.png' %}
+{% set vocab_count_excl_commonwords_image = 'vocab_count_excl_commonwords'+ image_counter +'.png' %}
+{% set sentence_count_image = 'sentence_count'+ image_counter +'.png' %}
+{% set average_word_count_per_sentence_image = 'average_word_count_per_sentence'+ image_counter +'.png' %}
+
+{% set FS_GradeScore_image = 'FS_GradeScore'+ image_counter +'.png' %}
+{% set imgs_per_1000words_image = 'imgs_per_1000words'+ image_counter +'.png' %}
+{% set vids_per_1000words_image = 'vids_per_1000words'+ image_counter +'.png' %}
+{% set polarity_image = 'polarity'+ image_counter +'.png' %}
+{% set subjectivity_image = 'subjectivity'+ image_counter +'.png' %}
+
+<h1>Medium Article Clap Prediction</h1>
+
+<h3>Claps Prediction</h3>
+
+<p>{{url_text}}</p>
+
+<hr>
+
+<h3>Method One : Predicts Claps Via Semantic Similarity Of Article Content (Using Word Embeddings Only i.e ignores length,article age, polarity, etc) vs reference set of 200 other articles </h3>
+
+<p>Comparison Of Text Semantic Similarity To Articles With Average Document Vector For VH to VL Clap Count Categories In A Reference Dataset Of 200 Articles</p>
+<p>{{CategoryPrediction}}</p>
+<p> </p>
+<p>{{VeryHigh}}</p>
+<p>{{High}}</p>
+<p>{{Medium}}</p>
+<p>{{Low}}</p>
+<p>{{VeryLow}}</p>
+
+<p> </p>
+<hr>
+
+<ph3>Method Two : Predicts Claps Via Regularised (Lasso) Linear Regression method that compares sample article's text metrics (e.g. Article Age, Word Count, Readability, Sentence Count, Polarity, etc) against a reference set of 200 other articles</h3>
+<p> </p>
+
+<p>No Of Claps Expected TODAY: {{PredictionNow}}</p>
+
+<p>No Of Claps Expected In 6 Mths: {{PredictionInSixMonths}}</p>
+
+<p> </p>
+<hr>
+<p> </p>
+<h3>Comparison Of Individual Characteristics Vs Top Popularity Articles w >5k Claps</h3>
+
+<p> </p>
+
+<hr>
+<img src="{{ url_for('static', filename=title_word_count_image)}}" >
+<hr>
+<img src="{{ url_for('static', filename=text_word_count_image)}}" >
+<hr>
+<img src="{{ url_for('static', filename=vocab_count_excl_commonwords_image)}}" >
+<hr>
+<img src="{{ url_for('static', filename=sentence_count_image)}}" >
+<hr>
+<img src="{{ url_for('static', filename=average_word_count_per_sentence_image)}}" >
+<hr>
+<img src="{{ url_for('static', filename=FS_GradeScore_image)}}" >
+<hr>
+<img src="{{ url_for('static', filename=imgs_per_1000words_image)}}" >
+<hr>
+<img src="{{ url_for('static', filename=vids_per_1000words_image)}}" >
+<hr>
+<img src="{{ url_for('static', filename=polarity_image)}}" >
+<hr>
+<img src="{{ url_for('static', filename=subjectivity_image)}}" >
+<hr>
+
+</body>
+</html>
+

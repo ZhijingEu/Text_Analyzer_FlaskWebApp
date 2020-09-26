@@ -1,0 +1,37 @@
+﻿<!doctype html>
+<html>
+
+<body>
+{% set MTBI_image = 'MTBI'+ image_counter +'.png' %}
+{% set OCEAN_image = 'OCEAN'+ image_counter +'.png' %}
+{% set wordcloud_image = 'wordcloud'+ image_counter +'.png' %}
+
+<h1>Freeform Text Analysis</h1>
+
+<p>Original Text: {{freeform_text}}</p>
+
+<hr>
+<img src="{{ url_for('static', filename=wordcloud_image)}}" >
+<hr>
+{% for table in text_tables %}
+            {{ table|safe }}
+{% endfor %}
+
+<hr>
+<p>Myers Briggs Personality Type</p>
+<img src="{{ url_for('static', filename=MTBI_image)}}" >
+
+<hr>
+<p>Big5 OCEAN Personality Type</p>
+<img src="{{ url_for('static', filename=OCEAN_image)}}" >
+<hr>
+<p>Click Below For Detailed Sentence By Sentence Analysis</p>
+
+<form action="/detailed_analysis_text" method="post">
+  <textarea id="Freeform_Text" name="Freeform_Text" rows="5" cols="70" >{{freeform_text}}</textarea>   
+  <input type="submit" value="Click" />
+</form>
+
+</body>
+</html>
+

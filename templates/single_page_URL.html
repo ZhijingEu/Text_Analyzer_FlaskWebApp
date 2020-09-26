@@ -1,0 +1,45 @@
+﻿<!doctype html>
+<html>
+
+<body>
+{% set MTBI_image = 'MTBI'+ image_counter +'.png' %}
+{% set OCEAN_image = 'OCEAN'+ image_counter +'.png' %}
+{% set wordcloud_image = 'wordcloud'+ image_counter +'.png' %}
+
+<h1>Single Web-Page Text Analysis</h1>
+<img src="{{ url_for('static', filename=wordcloud_image)}}" >
+<hr>
+{% for table in urldetails_tables %}
+            {{ table|safe }}
+{% endfor %}
+
+<hr>
+
+<p>Myers Briggs Personality Type</p>
+<img src="{{ url_for('static', filename=MTBI_image)}}" >
+
+<hr>
+<p>Big5 OCEAN Personality Type</p>
+<img src="{{ url_for('static', filename=OCEAN_image)}}" >
+
+<hr>
+<p>Click For Detailed Sentence By Sentence Analysis</p>
+
+<form action="/detailed_analysis_URL" method="post">
+  <textarea id="URL_text" name="URL_Text" rows="1" cols="70">{{url_text}}</textarea>   
+  <input type="submit" value="Click" />
+</form>
+
+<hr>
+
+<p>Click For Medium Article "Clap" Prediction & Analysis</p>
+
+<form action="/clap_prediction" method="post">
+  <textarea id="URL_textCP" name="URL_TextCP" rows="1" cols="70">{{url_text}}</textarea>   
+  <input type="submit" value="Click" />
+</form>
+
+<hr>
+</body>
+</html>
+

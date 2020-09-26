@@ -1,0 +1,55 @@
+﻿<!DOCTYPE html>
+<html>
+
+<header>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+</header>
+
+<body>
+
+<h1>Text Analyzer</h1>
+<h2>By Zhijing Eu (zhijingeu@yahoo.com)</h2>
+<p>Ver 1.0 : 2020-09-25 </p>
+<div id="loading" style="display:none;"><img src="./static/loading.gif" alt="" />Loading!</div>
+<hr>
+<h3>Analyze A Single Web-Page Or Text</h3>
+
+<form action="/single_page_URL" method="post">
+  <label for="single_page">Enter URL</label>
+  <p> </p>
+  <input type="text" id="Single_URL" name="Single_URL" size="68"><br><br>
+  <input type="submit" value="Submit URL" onclick="$('#loading').show();">
+</form>
+
+<p> -OR- </p>
+
+<p>Freeform Text</p>
+
+<form action="/single_page_text" method="post">
+  <textarea id="Freeform_Text" name="Freeform_Text" rows="5" cols="70"></textarea>
+
+<p> </p>
+<input type="submit" value="Submit Freeform Text" onclick="$('#loading').show();">
+</form>
+<p> </p>
+<hr>
+<h3>Compare Two Web-Pages</h3>
+<form action="/side_by_side" method="post">
+  <label for="Double_URL1">Enter URL1</label>
+  <p> </p>
+  <input type="text" id="Double_URL1" name="Double_URL1" size="68"><br><br>
+  <label for="Double_URL1">Enter URL2</label>
+  <p> </p>
+  <input type="text" id="Double_URL2" name="Double_URL2" size="68"><br><br>
+  <input type="submit" value="Submit URLs" onclick="$('#loading').show();">
+</form>
+<p> </p>
+<hr>
+<p> </p>
+<form action="/about" method="post">
+   <label for="About">About The App & Interpreting The Metrics</label>
+   <input type="submit" value="Click" >
+</form>
+
+</body>
+</html>

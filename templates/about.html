@@ -1,0 +1,105 @@
+﻿<!DOCTYPE html>
+<html>
+
+<header>
+</header>
+
+<body>
+
+<h1>Text Analyzer</h1>
+<p>Ver 1.0 : 2020-09-25 </p>
+<p> </p>
+<h2><u>About The Author</u></h2>
+<p>Hi! I&rsquo;m Z. Professionally I am an engineer in the energy sector but I&rsquo;ve been dabbling in data science and machine learning.</p>
+<p>Find other stuff I&rsquo;ve made on my Medium page <a href="https://medium.com/@zhijingeu">https://medium.com/@zhijingeu</a> or look me up on LinkedIn <a href="https://www.linkedin.com/in/eu-zhijing-25a4362/">https://www.linkedin.com/in/eu-zhijing-25a4362/</a></p>
+<p>&nbsp;</p>
+<hr>
+<h2><u>About The App</u></h2>
+<p>This app was built using<a href="https://palletsprojects.com/p/flask/"> Flask</a> , a lightweight web-app framework for Python</p>
+<p>&nbsp;</p>
+<hr>
+<h2><u>About The Various Text Analysis Metrics</u></h2>
+<hr>
+<p><strong><u>Sentiment Analysis</u></strong></p>
+<p><a href="https://textblob.readthedocs.io/en/dev/quickstart.html#sentiment-analysis">Sentiment Analysis</a> uses key words analysis to determine polarity (how negative or positive a statement is) and subjectivity (as opposed to neutral fact based statements e.g I think&hellip;, You should&hellip;, etc)&nbsp;. I used the <a href="https://textblob.readthedocs.io/en/dev/quickstart.html#sentiment-analysis">TextBlob library</a> in Python to implement this in the app.</p>
+<p>The polarity score is a float within the range of -100% for negative statements and +100% for positive statements.</p>
+
+<img src="{{ url_for('static', filename="example_polarity.png") }}">
+
+<p> </p>
+<p>The subjectivity is a float within the range where 0.0 is very objective and 100% is very subjective.</p>
+
+<img src="{{ url_for('static', filename="example_subjectivity.png")}}">
+
+
+<hr>
+<p><strong><u>Ease Of Readability </u></strong></p>
+<p>The Flesch Reading Ease Formula is a simple approach to assess the grade-level of the reader and a standard readability formula used by many US Government Agencies.</p>
+<p>It is calculated using a formula that considers Average Sentence Length and Average No Of Syllables Per Word where the higher the score, the easier it is to read the text.</p>
+<ul>
+<li>&gt;90 &nbsp;: Very Easy</li>
+<li>80-89 : Easy</li>
+<li>70-79 : Fairly Easy</li>
+<li>60-69 : Standard</li>
+<li>50-59 : Fairly Difficult</li>
+<li>30-49 : Difficult</li>
+<li>&lt;29 : Very Confusing</li>
+</ul>
+<p>This was implemented in the model using a Python library called <a href="https://pypi.org/project/textstat" data-href="https://pypi.org/project/textstat">Textstat</a></p>
+
+<img src="{{ url_for('static', filename="example_readability.png")}}">
+
+<hr>
+<p><strong><u>Myers Briggs Personality Profiling</u></strong></p>
+<p>The <a href="https://en.wikipedia.org/wiki/Myers%E2%80%93Briggs_Type_Indicator" data-href="https://en.wikipedia.org/wiki/Myers%E2%80%93Briggs_Type_Indicator">Myers&ndash;Briggs Type Indicator (MBTI)</a> tries to explain how people perceive the world and make decisions and assigns people to four categories: Introversion or Extraversion, Sensing or iNtuition, Thinking or Feeling, Judging or Perceiving. One letter from each category is taken to produce a four-letter test result, like &ldquo;INFJ&rdquo; or &ldquo;ENFP&rdquo;.</p>
+<p>The original model for MBTI prediction was authored by <strong><a href="https://towardsdatascience.com/@mnagpurkar11">Mehul Nagpurkar</a></strong> and I adapted the pre-trained model available at this link below to work with this app.</p>
+<p><a href="https://towardsdatascience.com/text-analytics-what-does-your-linkedin-profile-summary-say-about-your-personality-f80df46875d1">https://towardsdatascience.com/text-analytics-what-does-your-linkedin-profile-summary-say-about-your-personality-f80df46875d1</a></p>
+<p>It works using a <a href="https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html">Logistic Regression Classifier</a> model that reviews the key words in the text and provides the odds within the four MBTI categories of I vs E , N vs S , T vs F and J vs P. For example below is a ESTP profile</p>
+
+<img src="{{ url_for('static', filename="example_MTBI.png")}}">
+
+<hr>
+<p><strong><u>Big 5 Personality Traits </u></strong></p>
+<p>Another popular Personality profiling approach is the <a href="https://en.wikipedia.org/wiki/Big_Five_personality_traits">Big 5 Traits</a> model (also sometimes known as the O.C.E.A.N model) which is a grouping of five main personality traits:</p>
+<ul>
+<li>openness to experience (inventive/curious vs. consistent/cautious)</li>
+<li>conscientiousness (efficient/organized vs. extravagant/careless)</li>
+<li>extraversion (outgoing/energetic vs. solitary/reserved)</li>
+<li>agreeableness (friendly/compassionate vs. challenging/callous)</li>
+<li>neuroticism (sensitive/nervous vs. resilient/confident)</li>
+</ul>
+<p>The original model for Big 5 Traits prediction was authored by <a href="mailto:jcl132@gmail.com">jcl132@gmail.com</a> and I adapted the pre-trained model available at this link below to work with this app</p>
+<p><a href="https://github.com/jcl132/personality-prediction-from-text">https://github.com/jcl132/personality-prediction-from-text</a></p>
+<p>It works using a combination of a <a href="https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestRegressor.html">Random Forest Regressor</a> and <a href="https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestClassifier.html">Random Forest Classifier</a> where a set of classifying decision trees take various sub-samples of the text data-set , analyses them for key words and uses averaging to improve the predictive accuracy to return a score for each of the 5 O.C.E.A.N traits.</p>
+
+<img src="{{ url_for('static', filename="example_OCEAN.png")}}">
+
+
+<hr>
+<p><strong><u>About The Clap Predictor Models</u></strong></p>
+<p>I built this bit myself.</p>
+<p>The training dataset comes from the archive pages of Towards Data Science <a href="https://towardsdatascience.com/archive">https://towardsdatascience.com/archive</a> and Analytics Vidhya <a href="https://medium.com/analytics-vidhya/archive">https://medium.com/analytics-vidhya/archive</a></p>
+<p>It is not a very large dataset ~ 200 Articles and consists of mostly articles from 2020 with a few 2019/2018 articles. The clap counts are such that only a few articles have high clap counts &gt; 10k Claps</p>
+
+<img src="{{ url_for('static', filename="Dataset_Age.png")}}">
+<p> </p>
+<img src="{{ url_for('static', filename="Dataset_Claps.png")}}">
+<p> </p>
+<p>The first model was a <a href="https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.Lasso.html">Linear Regressor model with Lasso Regularisation</a>. Performance is mixed &ndash; it works best with Medium Articles that are relatively recently published (Less than a year old)</p>
+<p>The features were selected based on exploratory data analysis of the dataset and includes most of the numerical features (word count, sentence count, reading ease, sentiment analysis outputs) excluding the personality features (which were low in correlation to the Clap Count)</p>
+<p>The resultant logistic regression had a coefficient of determination of 0.15 and a Mean Square Error of 2.981 (Log Claps) ~ 19.7 Claps (Absolute terms). This seems ok until you realise that the model all but breaks down for any articles in the test set with more than 2,000 claps </p>
+<p> </p>
+<img src="{{ url_for('static', filename="Lasso_Regression_LogPlot.png")}}">
+<p>The straight-line is if Predicted = Actual (Note the scales are a bit misleading) so the further the dot is from the straight line, the worse the error</p>
+<p> </p>
+<p>The second model was a simple Classifier made by first turning all the articles into high dimensionality document vectors &nbsp;using the <a href="https://radimrehurek.com/gensim/models/doc2vec.html">Gensim Doc2Vec</a> library , finding out the average document vector by clap count categories of VH to VL and then matching the similarity of article vector these VH to VL categories.</p>
+
+<img src="{{ url_for('static', filename="Word_Embedding_TSNE.png")}}">
+<p>When tested against the entire 200 Articles, the classifier model has a 80% accuracy</p>
+<p> </p>
+<p>Please note the clap predictions are by no means accurate! Predictions will work best with fairly recently published articles that are related to Data Science or Machine Learning. You can try these with older articles or other topics but results will likely be highly variable. &nbsp;</p>
+<hr>
+<p>Find out more about how the app was built and the accompanying source code via the accompanying Medium article available on my <a href="https://medium.com/@zhijingeu">Medium profile page</a> </p>
+
+</body>
+</html>
