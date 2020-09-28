@@ -40,6 +40,7 @@ Flask==1.1.2
 gensim==3.8.3
 geographiclib==1.49
 geopy==1.19.0
+gunicorn==20.0.4
 html5lib==1.1
 htmldate==0.7.1
 htmlst==0.1.0b1
@@ -125,8 +126,8 @@ toolz==0.9.0
 tornado==6.0.2
 tqdm==4.49.0
 traitlets==4.3.2
-typing==3.6.6
-typing-extensions==3.7.2
+#typing==3.6.6
+#typing-extensions==3.7.2
 ujson==1.35
 urllib3==1.25.10
 vaderSentiment==3.2.1
