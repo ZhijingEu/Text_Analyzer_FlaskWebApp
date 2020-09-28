@@ -1,4 +1,7 @@
 #yaml file if you want to use Google App Engine to run this
 
 runtime: python37
+
+entrypoint: gunicorn -b :$PORT main:app
+
 instance_class: F4
