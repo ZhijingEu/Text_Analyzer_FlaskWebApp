@@ -35,7 +35,10 @@ wcstopwords = set(STOPWORDS)
 #For Random Forest Regressions For Personality Prediction
 import scipy.stats as stats
 from sklearn.ensemble import RandomForestRegressor, RandomForestClassifier
+
 from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.linear_model import LogisticRegression
 
 #For Similarity Between Docs
 from gensim.models import doc2vec
@@ -51,27 +54,29 @@ import openpyxl
 from math import pi
 import datetime
 
+#Courtesy of Tristan Brown at https://stackoverflow.com/questions/27732354/unable-to-load-files-using-pickle-and-multiple-modules
+class CustomUnpickler(pickle.Unpickler):
+
+    def find_class(self, module, name):
+        try:
+            return super().find_class(__name__, name)
+        except AttributeError:
+            return super().find_class(module, name)
+
 #Load Trained Models for MTBI Classification
 #Credit to authors of the pre-trained classifiers here
 #https://github.com/wiredtoserve/datascience/tree/master/PersonalityDetection
 
 dummy_fn = lambda x:x
 
-with open('./MTBIModels/cv.pickle', 'rb') as f:
-    cv = pickle.load(f)
-    
-with open('./MTBIModels/idf_transformer.pickle', 'rb') as f:
-    idf_transformer = pickle.load(f)
-    
-# loading the pickle files with the classifiers
-with open('./MTBIModels/LR_clf_IE_kaggle.pickle', 'rb') as f:
-    lr_ie = pickle.load(f)
-with open('./MTBIModels/LR_clf_JP_kaggle.pickle', 'rb') as f:
-    lr_jp = pickle.load(f)
-with open('./MTBIModels/LR_clf_NS_kaggle.pickle', 'rb') as f:
-    lr_ns = pickle.load(f)
-with open('./MTBIModels/LR_clf_TF_kaggle.pickle', 'rb') as f:
-    lr_tf = pickle.load(f)
+cv = CustomUnpickler(open('./MTBIModels/cv.pickle', 'rb')).load()
+
+idf_transformer = CustomUnpickler(open('./MTBIModels/idf_transformer.pickle', 'rb')).load()
+
+lr_ie = CustomUnpickler(open('./MTBIModels/LR_clf_IE_kaggle.pickle', 'rb')).load()
+lr_jp = CustomUnpickler(open('./MTBIModels/LR_clf_JP_kaggle.pickle', 'rb')).load()
+lr_ns = CustomUnpickler(open('./MTBIModels/LR_clf_NS_kaggle.pickle', 'rb')).load()
+lr_tf = CustomUnpickler(open('./MTBIModels/LR_clf_TF_kaggle.pickle', 'rb')).load()
 
 # Load Pre-Trained Models for Big5 OCEAN Personality Classification
 # Credit to authors of the original pre-trained classifiers here https://github.com/jcl132/personality-prediction-from-text
@@ -109,7 +114,6 @@ class Model(): # Note "Model" represents the Big 5 OCEAN Model. I can't rename a
         else:
             return self.rfc.predict_proba(X)
 
-
 traits = ['OPN', 'CON', 'EXT', 'AGR', 'NEU']
 #### (O) Openess
 #### (C) Conscientiousness
@@ -119,9 +123,11 @@ traits = ['OPN', 'CON', 'EXT', 'AGR', 'NEU']
 
 model = Model()
 models = {}    
-for trait in traits:
-    with open('BigFiveModels/' + trait + '_model.pkl', 'rb') as f:
-        models[trait] = pickle.load(f)
+models['OPN'] = CustomUnpickler(open('BigFiveModels/OPN_model.pkl', 'rb')).load()
+models['CON'] = CustomUnpickler(open('BigFiveModels/CON_model.pkl', 'rb')).load()
+models['EXT'] = CustomUnpickler(open('BigFiveModels/CON_model.pkl', 'rb')).load()
+models['AGR'] = CustomUnpickler(open('BigFiveModels/AGR_model.pkl', 'rb')).load()
+models['NEU'] = CustomUnpickler(open('BigFiveModels/NEU_model.pkl', 'rb')).load()
 
 #Load the Clap Prediction Model with the 'simple' Lasso Regression model - CAUTION - It is not very accurate ! 
 
@@ -295,8 +301,7 @@ def FS_ReadingEaseLevel(FS_GradeScore):
     else :
         FS_Grade="Very Confusing"
     return FS_Grade    
-    
-    
+
 def MTBI_Analysis(tokensalpha):           
     c = cv.transform([tokensalpha])
     x = idf_transformer.transform(c)
@@ -399,7 +404,7 @@ def plot_MTBI(tokensalpha):
     ax2.barh(xlabels2,[1, 1, 1, 1])
     ax2.barh(xlabels2, [Judging, Thinking, Intuiting, Introversion]) 
     return fig #plt.show(fig)
-                
+
 def OCEAN_Analysis(cleanedtext):
     predictions = {}
     trait_list = ['OPN', 'CON', 'EXT', 'AGR', 'NEU']
@@ -461,7 +466,7 @@ def plot_OCEAN_Radar(OCEANAnalysis):
     ax.fill(angles, values, 'b', alpha=0.1)
 
     return plt #plt.show()
-    
+              
 def sentence_by_sentence_analysis(cleanedtext):
     blob = TextBlob(cleanedtext)
     split_text=blob.sentences
@@ -993,6 +998,9 @@ def side_by_side():
 #     response.headers['Expires'] = '-1'
 #     return response
 
+print("Hey, I Loaded Up...")
+
 if __name__ == '__main__':
     app.run(debug = True)
+
 
