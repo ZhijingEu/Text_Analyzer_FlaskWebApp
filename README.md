@@ -19,6 +19,8 @@ To run the Flask App:
 
 -Use the requirements.txt to install the dependencies on your local virtual environment
 
+-Rename the 04_flask_app.py file as main.py and run using either 'python main.py' OR 'set FLASK_APP=main.py' and 'flask run'
+
 Description Of Files/Folders:
 
 01_Text_Analysis_JupyterNotebook.ipynb contains the original working notebook I used to develop the flask app
@@ -27,7 +29,7 @@ Description Of Files/Folders:
 
 03_Training_A_Doc2Vec_Model.ipynb shows how I trained the Doc2Vec model on the 200 article dataset and used it to build a simple classifier to prediction Clap Count category for any given article
 
-04_flask_app.py is the actual Flask App itself
+04_flask_app.py is the actual Flask App itself. Remember to rename it before running
 
 'Static' and 'Templates' contains the HTML and images for the flask app
 
