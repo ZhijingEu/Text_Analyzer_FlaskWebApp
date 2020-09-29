@@ -15,11 +15,13 @@ Instructions:
 
 To run the Flask App:
 
--Please clone the entire repo to your local machine and UNZIP any .zip model files in the folders "BigFiveModels" and "ClapPredictionModels" (I had to zip it as they Github had a size limit per file)
+a)Please clone the entire repo to your local machine and UNZIP any .zip model files in the folders "BigFiveModels" and "ClapPredictionModels" (I had to zip it as they Github had a size limit per file)
 
--Use the requirements.txt to install the dependencies on your local virtual environment
+b)Use the requirements.txt to install the dependencies on your local virtual environment
 
--Rename the 04_flask_app.py file as main.py and run using either 'python main.py' OR 'set FLASK_APP=main.py' and 'flask run'
+c)IMPORTANT: You will need to install NLTK data the code references onto your local machine using the commands : 'python -m nltk.downloader stopwords' and 'python -m nltk.downloader punkt'
+
+d)Rename the 04_flask_app.py file as main.py and run using either 'python main.py' OR 'set FLASK_APP=main.py' and 'flask run'
 
 Description Of Files/Folders:
 
