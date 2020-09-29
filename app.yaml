@@ -2,6 +2,9 @@
 
 runtime: python37
 
-entrypoint: gunicorn -b :$PORT main:app
+entrypoint: gunicorn -b :$PORT main:app --timeout 120
 
-instance_class: F4
+instance_class: F4_1G
+
+env_variables:
+    NLTK_DATA: './nltk_data'
